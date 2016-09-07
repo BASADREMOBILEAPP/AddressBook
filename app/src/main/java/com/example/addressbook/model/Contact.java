@@ -5,11 +5,19 @@ package com.example.addressbook.model;
  */
 public class Contact {
 
-    String name,
+    String id,name,
             lastname,
             email,
             phone,
             address;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

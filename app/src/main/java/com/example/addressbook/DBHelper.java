@@ -22,6 +22,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CONTACTS_COLUMN_LASTNAME = "lastname";
     public static final String CONTACTS_COLUMN_EMAIL = "email";
     public static final String CONTACTS_COLUMN_PHONE = "phone";
+    public static final String CONTACTS_COLUMN_ADDRESS = "phone";
+
 
     public DBHelper(Context ctx){
         super(ctx,DATABASE_NAME,null,1);
@@ -59,17 +61,25 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public ArrayList<String> getAllContacts()
+    public ArrayList<Contact> getAllContacts()
     {
-        ArrayList<String> array_list = new ArrayList<String>();
+        ArrayList<Contact> array_list = new ArrayList<Contact>();
 
-        //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from contacts", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
+
+            Contact contact = new Contact();
+            contact.setId(res.getString(res.getColumnIndex(CONTACTS_COLUMN_ID)));
+            contact.setName(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
+            contact.setLastname(res.getString(res.getColumnIndex(CONTACTS_COLUMN_LASTNAME)));
+            contact.setAddress(res.getString(res.getColumnIndex(CONTACTS_COLUMN_ADDRESS)));
+            contact.setPhone(res.getString(res.getColumnIndex(CONTACTS_COLUMN_PHONE)));
+            contact.setEmail(res.getString(res.getColumnIndex(CONTACTS_COLUMN_EMAIL)));
+
+            array_list.add(contact);
             res.moveToNext();
         }
         return array_list;

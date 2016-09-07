@@ -16,12 +16,13 @@ public class RegisterContactActivity extends AppCompatActivity {
             edtPhone,edtAddress,edtEmail;
     Button btnRegisterContact;
 
-    SQLiteDatabase db = openOrCreateDatabase("addressbook",MODE_PRIVATE,null);
+    DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_contact);
+        db = new DBHelper(this);
 
         edtName = (EditText) findViewById(R.id.edtName);
         edtLastname = (EditText) findViewById(R.id.edtLastname);
@@ -39,23 +40,14 @@ public class RegisterContactActivity extends AppCompatActivity {
     }
 
     public void registerContact(){
+        Contact contact = new Contact();
+        contact.setName(edtName.getText().toString());
+        contact.setAddress(edtAddress.getText().toString());
+        contact.setEmail(edtEmail.getText().toString());
+        contact.setPhone(edtPhone.getText().toString());
+        contact.setLastname(edtLastname.getText().toString());
 
-        String name = edtName.getText().toString();
-        String lastname = edtLastname.getText().toString();
-        String phone = edtPhone.getText().toString();
-        String address = edtAddress.getText().toString();
-        String email = edtEmail.getText().toString();
-
-        db.execSQL("CREATE TABLE IF NOT EXISTS Contacts" +
-                "(Name VARCHAR," +
-                "Lastname VARCHAR" +
-                "Phone VARCHAR" +
-                "Address VARCHAR" +
-                "Email VARCHAR);");
-
-        db.execSQL("INSERT INTO Contacts values " +
-                "('"+name+"','"+lastname+"','"+phone+"','"+address+"','"+email+"')");
-
-        Toast.makeText(RegisterContactActivity.this, "Se añadio el contacto", Toast.LENGTH_SHORT).show();
+        if(db.insertContact(contact)) Toast.makeText(RegisterContactActivity.this, "Se añadio el contacto", Toast.LENGTH_SHORT).show();
+        else Toast.makeText(RegisterContactActivity.this, "No se registro el contacto", Toast.LENGTH_SHORT).show();
     }
 }

@@ -21,15 +21,16 @@ public class MainActivity extends AppCompatActivity {
     AddressBookAdapter adapter;
 
     ArrayList<Contact> contactArrayList;
-    SQLiteDatabase db = openOrCreateDatabase("addressbook",MODE_PRIVATE,null);
+    DBHelper db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = new DBHelper(this);
 
-        fetchContacts();
+        contactArrayList = db.getAllContacts();
 
         lvContacts = (ListView) findViewById(R.id.lvContacts);
         adapter = new AddressBookAdapter(this);
@@ -42,17 +43,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_principal,menu);
+        inflater.inflate(R.menu.menu_principal, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.itemAddedContact:
-                Intent i = new Intent(this,RegisterContactActivity.class);
+                Intent i = new Intent(this, RegisterContactActivity.class);
                 startActivity(i);
                 break;
             case R.id.itemExit:
@@ -63,10 +63,5 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void fetchContacts(){
-        Cursor resultSet = db.rawQuery("SELECT * FROM Contacts",null);
-        for (resultSet:results){
 
-        }
-    }
 }
