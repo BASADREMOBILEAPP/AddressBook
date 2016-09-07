@@ -1,9 +1,13 @@
 package com.example.addressbook.adapter;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
+import com.example.addressbook.R;
 import com.example.addressbook.model.Contact;
 
 import java.util.ArrayList;
@@ -14,19 +18,40 @@ import java.util.ArrayList;
 public class AddressBookAdapter extends BaseAdapter {
 
     ArrayList<Contact> listContacts;
+    LayoutInflater layoutInflater;
 
-    public AddressBookAdapter(ArrayList<Contact> _listContacts){
+    public AddressBookAdapter(Context ctx){
+        layoutInflater = LayoutInflater.from(ctx);
+    }
+
+    public void setData(ArrayList<Contact> _listContacts){
         listContacts = _listContacts;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        ViewHolder vh;
+        View view = layoutInflater.inflate(R.layout.layout_contact_item,null);
+        if(convertView!=null){
+            vh = (ViewHolder) convertView.getTag();
+        }else {
+            vh = new ViewHolder();
+            vh.txtName = (TextView) view.findViewById(R.id.txtName);
+            vh.txtPhone = (TextView) view.findViewById(R.id.txtPhone);
+            vh.txtEmail = (TextView) view.findViewById(R.id.txtEmail);
+            convertView.setTag(vh);
+        }
+
+        vh.txtName.setText(listContacts.get(position).getName() + " " + listContacts.get(position).getLastname());
+        vh.txtEmail.setText(listContacts.get(position).getEmail());
+        vh.txtPhone.setText(listContacts.get(position).getPhone());
+
+        return view;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return listContacts.size();
     }
 
     @Override
@@ -36,10 +61,12 @@ public class AddressBookAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return listContacts.get(position);
     }
 
     private class ViewHolder{
-
+        TextView txtName,
+                txtPhone,
+                txtEmail;
     }
 }
