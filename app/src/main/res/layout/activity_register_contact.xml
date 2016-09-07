@@ -9,4 +9,62 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.addressbook.RegisterContactActivity">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Nombres"
+        android:ems="10"
+        android:id="@+id/edtName"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Apellidos"
+        android:ems="10"
+        android:id="@+id/edtLastname"
+        android:layout_below="@+id/edtName"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:hint="Email"
+        android:id="@+id/edtEmail"
+        android:layout_below="@+id/edtLastname"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:hint="Telefono"
+        android:id="@+id/edtPhone"
+        android:layout_below="@+id/edtEmail"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:hint="Direccion"
+        android:id="@+id/edtAddress"
+        android:layout_below="@+id/edtPhone"
+        android:layout_alignLeft="@+id/edtPhone"
+        android:layout_alignStart="@+id/edtPhone" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrar contacto"
+        android:id="@+id/btnRegisterContact"
+        android:layout_below="@+id/edtAddress"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
