@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterContactActivity"></activity>
+        <activity android:name=".RegisterContactActivity" />
+        <activity android:name=".ContactActivity"></activity>
     </application>
 
 </manifest>
