@@ -15,8 +15,7 @@ public class EditContactActivity extends AppCompatActivity {
     EditText edtName,edtLastname,
             edtPhone,edtAddress,edtEmail;
     Button btnEditContact;
-    String id,name,lastname,phone,address,email;
-
+    String id;
     DBHelper db;
     int EDITED_CONTACT_RESULT =1;
     @Override
@@ -28,11 +27,8 @@ public class EditContactActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         id = extras.getString("id");
-        name = extras.getString("name");
-        lastname = extras.getString("lastname");
-        phone = extras.getString("phone");
-        address = extras.getString("address");
-        email = extras.getString("email");
+        Contact contact = db.getData(id);
+
 
         edtName = (EditText) findViewById(R.id.edtName);
         edtLastname = (EditText) findViewById(R.id.edtLastname);
@@ -40,11 +36,11 @@ public class EditContactActivity extends AppCompatActivity {
         edtAddress = (EditText) findViewById(R.id.edtAddress);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
 
-        edtName.setText(name);
-        edtLastname.setText(lastname);
-        edtPhone.setText(phone);
-        edtAddress.setText(address);
-        edtEmail.setText(email);
+        edtName.setText(contact.getName());
+        edtLastname.setText(contact.getLastname());
+        edtPhone.setText(contact.getPhone());
+        edtAddress.setText(contact.getAddress());
+        edtEmail.setText(contact.getEmail());
 
         btnEditContact = (Button) findViewById(R.id.btnEditContact);
         btnEditContact.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +48,7 @@ public class EditContactActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editContact();
                 Intent i = new Intent();
-                setResult(EDITED_CONTACT_RESULT);
+                setResult(EDITED_CONTACT_RESULT,i);
                 finish();
             }
         });

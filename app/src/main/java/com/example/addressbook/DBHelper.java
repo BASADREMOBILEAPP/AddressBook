@@ -67,10 +67,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Cursor getData(int id){
+    public Contact getData(String id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from contacts where id="+id+"", null );
-        return res;
+        res.moveToFirst();
+        Contact contact = new Contact();
+
+        while (!res.isAfterLast()){
+            contact.setName(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
+            contact.setLastname(res.getString(res.getColumnIndex(CONTACTS_COLUMN_LASTNAME)));
+            contact.setAddress(res.getString(res.getColumnIndex(CONTACTS_COLUMN_ADDRESS)));
+            contact.setPhone(res.getString(res.getColumnIndex(CONTACTS_COLUMN_PHONE)));
+            contact.setEmail(res.getString(res.getColumnIndex(CONTACTS_COLUMN_EMAIL)));
+        }
+        return contact;
     }
 
     public ArrayList<Contact> getAllContacts()
@@ -81,7 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor res =  db.rawQuery( "select * from contacts", null );
         res.moveToFirst();
 
-        while(res.isAfterLast() == false){
+        while(!res.isAfterLast()){
 
             Contact contact = new Contact();
             contact.setId(res.getString(res.getColumnIndex(CONTACTS_COLUMN_ID)));

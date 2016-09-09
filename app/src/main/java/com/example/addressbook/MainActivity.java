@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Contact> contactArrayList;
     DBHelper db;
+    int EDITED_CONTACT_RESULT =1;
+
 
 
     @Override
@@ -44,12 +46,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(MainActivity.this,ContactActivity.class);
                 i.putExtra("id",contactArrayList.get(position).getId());
-                i.putExtra("name",contactArrayList.get(position).getName());
-                i.putExtra("lastname",contactArrayList.get(position).getLastname());
-                i.putExtra("address",contactArrayList.get(position).getAddress());
-                i.putExtra("phone",contactArrayList.get(position).getPhone());
-                i.putExtra("email",contactArrayList.get(position).getEmail());
-                startActivity(i);
+
+                startActivityForResult(i,REQUEST_CODE);
             }
         });
 
@@ -82,8 +80,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_CODE)
-            Toast.makeText(MainActivity.this, "Se cerro la actividad de registro de contacto", Toast.LENGTH_SHORT).show();
+        if(requestCode == REQUEST_CODE){
+            if(resultCode==EDITED_CONTACT_RESULT){
+                contactArrayList = db.getAllContacts();
+                adapter.notifyDataSetChanged();
+            }
+        }
         return;
     }
 }

@@ -21,7 +21,8 @@ public class ContactActivity extends AppCompatActivity {
     DBHelper db;
 
     Button btnEditContact,btnAcceptContact;
-
+    int EDITED_CONTACT_RESULT =1;
+    int REQUEST_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,13 +34,14 @@ public class ContactActivity extends AppCompatActivity {
         txtAddress = (TextView) findViewById(R.id.txtAddress);
         txtEmail = (TextView) findViewById(R.id.txtEmail);
 
-        Bundle extras = getIntent().getExtras();
-        id = extras.getString("id");
-        name = extras.getString("name");
-        lastname = extras.getString("lastname");
-        phone = extras.getString("phone");
-        address = extras.getString("address");
-        email = extras.getString("email");
+        id = getIntent().getExtras().getString("id");
+        Contact contact = db.getData(id);
+
+        name = contact.getName();
+        lastname = contact.getLastname();
+        phone = contact.getPhone();
+        address = contact.getAddress();
+        email = contact.getEmail();
 
         txtName.setText(name + " " + lastname);
         txtPhone.setText(phone);
@@ -52,12 +54,6 @@ public class ContactActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(ContactActivity.this, EditContactActivity.class);
                 i.putExtra("id",id);
-                i.putExtra("name",name);
-                i.putExtra("lastname",lastname);
-                i.putExtra("address",address);
-                i.putExtra("phone",phone);
-                i.putExtra("email",email);
-
                 startActivity(i);
             }
         });
@@ -72,5 +68,19 @@ public class ContactActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==REQUEST_CODE){
+            if(resultCode==EDITED_CONTACT_RESULT){
+                Contact contact = db.getData(id);
 
+                txtName.setText(contact.getName() + " " + contact.getLastname());
+                txtEmail.setText(contact.getEmail());
+                txtPhone.setText(contact.getPhone());
+                txtAddress.setText(contact.getAddress());
+
+                setResult(EDITED_CONTACT_RESULT);
+            }
+        }
+    }
 }
