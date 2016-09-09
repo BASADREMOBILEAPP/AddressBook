@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(MainActivity.this,ContactActivity.class);
+                i.putExtra("id",contactArrayList.get(position).getId());
                 i.putExtra("name",contactArrayList.get(position).getName());
                 i.putExtra("lastname",contactArrayList.get(position).getLastname());
                 i.putExtra("address",contactArrayList.get(position).getAddress());
