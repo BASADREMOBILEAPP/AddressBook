@@ -1,5 +1,6 @@
 package com.example.addressbook;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,5 +50,6 @@ public class RegisterContactActivity extends AppCompatActivity {
 
         if(db.insertContact(contact)) Toast.makeText(RegisterContactActivity.this, "Se añadio el contacto", Toast.LENGTH_SHORT).show();
         else Toast.makeText(RegisterContactActivity.this, "No se registro el contacto", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

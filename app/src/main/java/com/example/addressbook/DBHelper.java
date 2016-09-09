@@ -55,6 +55,18 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean updateContact (Contact contact){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id",contact.getId());
+        contentValues.put("name",contact.getName());
+        contentValues.put("lastname",contact.getLastname());
+        contentValues.put("phone",contact.getPhone());
+        contentValues.put("email",contact.getEmail());
+        db.update("contacts",contentValues,"id=?", new String[]{ contact.getId() } );
+        return true;
+    }
+
     public Cursor getData(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from contacts where id="+id+"", null );
