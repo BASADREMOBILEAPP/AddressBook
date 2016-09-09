@@ -51,13 +51,15 @@
             android:layout_weight="5"
             android:layout_height="wrap_content"
             android:text="Aceptar"
-            android:id="@+id/btnAccept" />
+            android:id="@+id/btnAccept"
+            android:layout_width="0dp" />
 
         <Button
             android:layout_weight="5"
             android:layout_height="wrap_content"
             android:text="Editar"
-            android:id="@+id/btnEditContact" />
+            android:id="@+id/btnEditContact"
+            android:layout_width="0dp" />
     </LinearLayout>
 
     <TextView

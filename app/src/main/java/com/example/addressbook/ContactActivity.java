@@ -1,5 +1,6 @@
 package com.example.addressbook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,7 @@ public class ContactActivity extends AppCompatActivity {
             txtAddress,
             txtEmail;
 
-    String name,lastname,phone,address,email;
+    String name, lastname, phone, address, email;
     String id;
     DBHelper db;
 
@@ -40,7 +41,7 @@ public class ContactActivity extends AppCompatActivity {
         address = extras.getString("address");
         email = extras.getString("email");
 
-        txtName.setText(name+" " + lastname);
+        txtName.setText(name + " " + lastname);
         txtPhone.setText(phone);
         txtAddress.setText(address);
         txtEmail.setText(email);
@@ -49,22 +50,19 @@ public class ContactActivity extends AppCompatActivity {
         btnEditContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editContact();
+                Intent i = new Intent(ContactActivity.this, EditContactActivity.class);
+                i.putExtra("id",id);
+                i.putExtra("name",name);
+                i.putExtra("lastname",lastname);
+                i.putExtra("address",address);
+                i.putExtra("phone",phone);
+                i.putExtra("email",email);
+
+                startActivity(i);
             }
         });
 
     }
 
-    public void editContact(){
 
-        Contact contact = new Contact();
-        contact.setId(id);
-        contact.setName(name);
-        contact.setLastname(lastname);
-        contact.setPhone(phone);
-        contact.setAddress(address);
-        contact.setEmail(email);
-
-        db.updateContact(contact);
-    }
 }
