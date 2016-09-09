@@ -1,5 +1,6 @@
 package com.example.addressbook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +18,7 @@ public class EditContactActivity extends AppCompatActivity {
     String id,name,lastname,phone,address,email;
 
     DBHelper db;
-
+    int EDITED_CONTACT_RESULT =1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +40,19 @@ public class EditContactActivity extends AppCompatActivity {
         edtAddress = (EditText) findViewById(R.id.edtAddress);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
 
+        edtName.setText(name);
+        edtLastname.setText(lastname);
+        edtPhone.setText(phone);
+        edtAddress.setText(address);
+        edtEmail.setText(email);
+
         btnEditContact = (Button) findViewById(R.id.btnEditContact);
         btnEditContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editContact();
+                Intent i = new Intent();
+                setResult(EDITED_CONTACT_RESULT);
                 finish();
             }
         });

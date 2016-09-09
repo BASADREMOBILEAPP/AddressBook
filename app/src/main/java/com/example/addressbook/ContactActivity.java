@@ -20,7 +20,7 @@ public class ContactActivity extends AppCompatActivity {
     String id;
     DBHelper db;
 
-    Button btnEditContact;
+    Button btnEditContact,btnAcceptContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,14 @@ public class ContactActivity extends AppCompatActivity {
                 i.putExtra("email",email);
 
                 startActivity(i);
+            }
+        });
+
+        btnAcceptContact = (Button) findViewById(R.id.btnAccept);
+        btnAcceptContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
