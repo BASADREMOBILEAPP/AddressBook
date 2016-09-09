@@ -2,6 +2,7 @@ package com.example.addressbook;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -43,6 +44,14 @@ public class ContactActivity extends AppCompatActivity {
         txtPhone.setText(phone);
         txtAddress.setText(address);
         txtEmail.setText(email);
+
+        btnEditContact = (Button) findViewById(R.id.btnEditContact);
+        btnEditContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editContact();
+            }
+        });
 
     }
 

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.addressbook">
 
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -19,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterContactActivity" />
-        <activity android:name=".ContactActivity"></activity>
+        <activity android:name=".ContactActivity" />
+        <activity android:name=".EditContactActivity"></activity>
     </application>
 
 </manifest>
