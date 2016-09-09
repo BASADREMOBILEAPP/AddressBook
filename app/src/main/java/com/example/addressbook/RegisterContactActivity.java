@@ -18,6 +18,7 @@ public class RegisterContactActivity extends AppCompatActivity {
     Button btnRegisterContact;
 
     DBHelper db;
+    int CONTACT_CREATED_RESULT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class RegisterContactActivity extends AppCompatActivity {
 
         if(db.insertContact(contact)) Toast.makeText(RegisterContactActivity.this, "Se añadio el contacto", Toast.LENGTH_SHORT).show();
         else Toast.makeText(RegisterContactActivity.this, "No se registro el contacto", Toast.LENGTH_SHORT).show();
+        setResult(CONTACT_CREATED_RESULT);
         finish();
     }
 }

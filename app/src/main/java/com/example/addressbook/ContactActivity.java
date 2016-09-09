@@ -54,7 +54,7 @@ public class ContactActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(ContactActivity.this, EditContactActivity.class);
                 i.putExtra("id",id);
-                startActivity(i);
+                startActivityForResult(i,REQUEST_CODE);
             }
         });
 

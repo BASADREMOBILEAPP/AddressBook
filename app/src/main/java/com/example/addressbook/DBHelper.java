@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
                 "create table contacts " +
-                        "(id integer primary key, name text,lastname text, phone text,email text)"
+                        "(id integer primary key, name text,lastname text, phone text,email text,address text)"
         );
     }
 
@@ -51,6 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("lastname",contact.getLastname());
         contentValues.put("phone",contact.getPhone());
         contentValues.put("email",contact.getEmail());
+        contentValues.put("address",contact.getAddress());
         db.insert("contacts",null,contentValues);
         return true;
     }
@@ -63,6 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("lastname",contact.getLastname());
         contentValues.put("phone",contact.getPhone());
         contentValues.put("email",contact.getEmail());
+        contentValues.put("address",contact.getAddress());
         db.update("contacts",contentValues,"id=?", new String[]{ contact.getId() } );
         return true;
     }
@@ -72,14 +74,11 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor res =  db.rawQuery( "select * from contacts where id="+id+"", null );
         res.moveToFirst();
         Contact contact = new Contact();
-
-        while (!res.isAfterLast()){
-            contact.setName(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
-            contact.setLastname(res.getString(res.getColumnIndex(CONTACTS_COLUMN_LASTNAME)));
-            contact.setAddress(res.getString(res.getColumnIndex(CONTACTS_COLUMN_ADDRESS)));
-            contact.setPhone(res.getString(res.getColumnIndex(CONTACTS_COLUMN_PHONE)));
-            contact.setEmail(res.getString(res.getColumnIndex(CONTACTS_COLUMN_EMAIL)));
-        }
+        contact.setName(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
+        contact.setLastname(res.getString(res.getColumnIndex(CONTACTS_COLUMN_LASTNAME)));
+        contact.setAddress(res.getString(res.getColumnIndex(CONTACTS_COLUMN_ADDRESS)));
+        contact.setPhone(res.getString(res.getColumnIndex(CONTACTS_COLUMN_PHONE)));
+        contact.setEmail(res.getString(res.getColumnIndex(CONTACTS_COLUMN_EMAIL)));
         return contact;
     }
 

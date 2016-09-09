@@ -46,15 +46,17 @@ public class EditContactActivity extends AppCompatActivity {
         btnEditContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editContact();
-                Intent i = new Intent();
-                setResult(EDITED_CONTACT_RESULT,i);
-                finish();
+                if(editContact()){
+
+                    Intent i = new Intent();
+                    setResult(EDITED_CONTACT_RESULT,i);
+                    finish();
+                }
             }
         });
     }
 
-    public void editContact(){
+    public boolean editContact(){
 
         Contact contact = new Contact();
         contact.setId(id);
@@ -64,7 +66,7 @@ public class EditContactActivity extends AppCompatActivity {
         contact.setAddress(edtAddress.getText().toString());
         contact.setEmail(edtEmail.getText().toString());
 
-        db.updateContact(contact);
+        return db.updateContact(contact);
     }
 }
 

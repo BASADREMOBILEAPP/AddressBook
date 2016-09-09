@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Contact> contactArrayList;
     DBHelper db;
     int EDITED_CONTACT_RESULT =1;
-
+    int CONTACT_CREATED_RESULT = 2;
 
 
     @Override
@@ -81,10 +81,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQUEST_CODE){
-            if(resultCode==EDITED_CONTACT_RESULT){
-                contactArrayList = db.getAllContacts();
-                adapter.notifyDataSetChanged();
-            }
+            contactArrayList = db.getAllContacts();
+            adapter.setData(contactArrayList);
+            adapter.notifyDataSetChanged();
         }
         return;
     }
